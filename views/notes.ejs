@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>SIMPLE NOTE APP</title>
+  <title>Note Taking App</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
@@ -11,11 +11,11 @@
       <h2>Note App</h2>
       <form action="/addNotes" method="POST">
         <div class="form-group">
-          <textarea class="form-control" type="text" name="newNote" id="newNote" placeholder="Add new Note"></textarea>
+          <textarea class="form-control mb-2" type="text" name="newNote" id="newNote" placeholder="Add new Note"></textarea>
           <button class="btn btn-success" type="submit">Add Note</button>
         </div>
+      </form>
     </div>
-    </form>
 
     <!-- we create a table for the inputted notes -->
     <table class="table">
@@ -32,7 +32,7 @@
             <th scope="row"><%= index+1 %></th>
             <td><%= i.body %></td>
             <td>
-              <form action='<%= /deleteNote/ +i.id%>' method="POST">
+              <form action='<%= /deleteNote/ +i.id %>' method="POST">
                 <button type="submit" class="btn btn-danger">Delete</button>
               </form>
             </td>
@@ -41,9 +41,6 @@
       </tbody>
     </table>
 
-    <div class="footer">
-      <p>Copyright &copy 2020 ZinnyCodes</p>
-    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>

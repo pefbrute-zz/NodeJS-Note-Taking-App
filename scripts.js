@@ -16,7 +16,8 @@ app.use(
 );
 
 //serving static files
-app.use(express.static("public"));
+app.use( express.static("public") );
+
 //we installed the ejs and created a file inside the views
 app.set("view engine", "ejs");
 
@@ -31,9 +32,18 @@ app.get("/", function (req, res) {
 app.post("/addNotes", function (req, res) {
   //assigning Note id to the notes using math.random
   const userNote = {};
+  let body = req.body,
+  newNote = body.newNote;
+
   userNote.id = Math.random() * 100;
-  userNote.body = req.body.newNote;
+  userNote.body = newNote;
+  
+  console.log(userNote);
+  console.log(body);
+  console.log();
+
   note.push(userNote);
+
   //then we redirect it to the root route
   res.redirect("/");
 });
@@ -41,8 +51,14 @@ app.post("/addNotes", function (req, res) {
 //Handling the delete request
 
 app.post("/deleteNote/:id", function (req, res) {
-  console.log(req.params.id);
-  const deleteNotes = note.filter((item) => item.id != req.params.id);
+  let params = req.params,
+  id = params.id;
+
+  console.log(params);
+  console.log(id);
+  console.log();
+
+  const deleteNotes = note.filter( (item) => item.id != id );
   note = deleteNotes;
   return res.redirect("/");
 });
