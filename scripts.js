@@ -2,9 +2,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-let note = [
-  { id: 1, body: "We have a text" },
-  { id: 2, body: "This is a second text" },
+let notes = [
+  { id: 0, body: "We have a text" },
+  { id: 1, body: "This is a second text" },
 ];
 
 //call the express and Body-parser
@@ -16,51 +16,59 @@ app.use(
 );
 
 //serving static files
-app.use( express.static("public") );
+app.use(express.static("public"));
 
 //we installed the ejs and created a file inside the views
 app.set("view engine", "ejs");
 
 //We set up the route for the App. We first use the app.get option.
-app.get("/", function (req, res) {
-  res.render("notes", {
-    note: note,
+app.get("/", function (request, response) {
+  // console.log(response);
+  console.log("New notes: ", notes);
+  response.render("notes", {
+    notes: notes,
   });
 });
 
 //then, we use app.post option.
-app.post("/addNotes", function (req, res) {
+app.post("/addNotes", function (request, response) {
   //assigning Note id to the notes using math.random
   const userNote = {};
-  let body = req.body,
-  newNote = body.newNote;
+  let body = request.body,
+    newNote = body.newNote;
 
   userNote.id = Math.random() * 100;
   userNote.body = newNote;
-  
+
   console.log(userNote);
   console.log(body);
+  console.log("Old notes: ", notes);
   console.log();
 
-  note.push(userNote);
+  notes.push(userNote);
 
   //then we redirect it to the root route
-  res.redirect("/");
+  response.redirect("/");
 });
 
 //Handling the delete request
 
-app.post("/deleteNote/:id", function (req, res) {
-  let params = req.params,
-  id = params.id;
+app.post("/deleteNote/:id", function (request, response) {
+  let parameters = request.params,
+    idOfDeletedNote = parameters.id;
 
-  console.log(params);
-  console.log(id);
+  console.log(parameters);
+  console.log(idOfDeletedNote);
   console.log();
 
-  const deleteNotes = note.filter( (item) => item.id != id );
-  note = deleteNotes;
-  return res.redirect("/");
+  console.log("Notes before deleting: ", notes);
+
+  const notDeletedNotes = notes.filter((note) => note.id != idOfDeletedNote);
+  notes = notDeletedNotes;
+
+  console.log("Notes after deleting: ", notes);
+
+  return response.redirect("/");
 });
 
 //then we set our server port. This should always be at bottom.

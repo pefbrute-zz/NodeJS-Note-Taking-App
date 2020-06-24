@@ -27,17 +27,17 @@
         </tr>
       </thead>
       <tbody>
-        <% note.map((i, index) => { %>
+        <% notes.map( (note, index) => { %>
           <tr>
-            <th scope="row"><%= index+1 %></th>
-            <td><%= i.body %></td>
+            <th scope="row"><%= index %></th>
+            <td><%= note.body %></td>
             <td>
-              <form action='<%= /deleteNote/ +i.id %>' method="POST">
+              <form action='<%= /deleteNote/ +note.id %>' method="POST">
                 <button type="submit" class="btn btn-danger">Delete</button>
               </form>
             </td>
           </tr>
-        <% }) %>
+        <% } ) %>
       </tbody>
     </table>
 
